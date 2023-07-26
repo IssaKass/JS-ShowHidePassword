@@ -15,8 +15,8 @@ eyeBtn.addEventListener("click", function () {
 
 // change the UI theme
 const themeBtn = document.getElementById("theme-btn");
-const themeList = document.getElementById("theme-list");
 const root = document.querySelector(":root");
+const themeList = document.getElementById("theme-list");
 let currentTheme = 0;
 let themeFromLocalStorage = JSON.parse(localStorage.getItem("theme"));
 
@@ -37,21 +37,27 @@ if (themeFromLocalStorage) {
   localStorage.setItem("theme", currentTheme);
   applyTheme(currentTheme);
 }
+document.querySelectorAll(".theme-item").forEach((item) => {
+  if (item.dataset.theme == themeFromLocalStorage) {
+    item.classList.add("active");
+  }
+});
 
 function renderThemes() {
   PRIMARY_COLORS.forEach((color, index) => {
     const liEl = document.createElement("li");
     liEl.classList.add("theme-item");
     liEl.style.setProperty("--theme", color);
+    liEl.dataset.theme = index;
+
     liEl.addEventListener("click", function () {
-      document.querySelectorAll(".theme-list .theme-item").forEach((li) => {
+      document.querySelectorAll(".theme-item").forEach((li) => {
         li.classList.remove("active");
       });
       liEl.classList.add("active");
 
-      currentTheme = index;
-      localStorage.setItem("theme", currentTheme);
-      applyTheme(currentTheme);
+      localStorage.setItem("theme", index);
+      applyTheme(index);
     });
 
     themeList.appendChild(liEl);
