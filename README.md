@@ -6,4 +6,4 @@ Show and Hide Password using HTML, CSS and JavaScript
 
 - Well designed UI in HTML and CSS.
 - Click on the eye icon to show/hide password.
-- Click on the theme button (top right corner) to the background color.
+- Click on the theme button (top right corner) to change the background color.
