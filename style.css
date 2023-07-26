@@ -28,19 +28,55 @@ body {
   transition: var(--transition);
 }
 
-.theme-btn {
+.theme-menu {
+  --size: 35px;
+  background-color: var(--clr-widget);
+  border-radius: 100vmax;
   position: fixed;
   top: 50px;
   right: 50px;
+  overflow: hidden;
+}
+
+.theme-menu .theme-btn {
   color: var(--clr-primary);
-  background-color: var(--clr-widget);
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
+  width: var(--size);
+  height: var(--size);
   display: grid;
   place-items: center;
   cursor: pointer;
   transition: var(--transition);
+}
+
+.theme-menu .theme-list {
+  padding-left: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  max-height: 0;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.theme-menu .theme-list.show {
+  max-height: 500px;
+  margin: 10px 0;
+}
+
+.theme-menu .theme-list .theme-item {
+  background-color: var(--theme);
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.theme-menu .theme-list .theme-item.active {
+  box-shadow: inset 0 0 0 2px var(--clr-widget);
 }
 
 .container {

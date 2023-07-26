@@ -15,10 +15,20 @@ eyeBtn.addEventListener("click", function () {
 
 // change the UI theme
 const themeBtn = document.getElementById("theme-btn");
+const themeList = document.getElementById("theme-list");
 const root = document.querySelector(":root");
 let currentTheme = 0;
 let themeFromLocalStorage = JSON.parse(localStorage.getItem("theme"));
-const PRIMARY_COLORS = ["cornflowerblue", "indianred", "darkkhaki"];
+
+const PRIMARY_COLORS = [
+  "cornflowerblue",
+  "indianred",
+  "darkkhaki",
+  "blueviolet",
+  "darkslategray",
+];
+
+renderThemes();
 
 if (themeFromLocalStorage) {
   currentTheme = themeFromLocalStorage;
@@ -28,13 +38,30 @@ if (themeFromLocalStorage) {
   applyTheme(currentTheme);
 }
 
+function renderThemes() {
+  PRIMARY_COLORS.forEach((color, index) => {
+    const liEl = document.createElement("li");
+    liEl.classList.add("theme-item");
+    liEl.style.setProperty("--theme", color);
+    liEl.addEventListener("click", function () {
+      document.querySelectorAll(".theme-list .theme-item").forEach((li) => {
+        li.classList.remove("active");
+      });
+      liEl.classList.add("active");
+
+      currentTheme = index;
+      localStorage.setItem("theme", currentTheme);
+      applyTheme(currentTheme);
+    });
+
+    themeList.appendChild(liEl);
+  });
+}
+
 function applyTheme(themeIndex) {
   root.style.setProperty("--clr-primary", PRIMARY_COLORS[themeIndex]);
 }
 
 themeBtn.addEventListener("click", function () {
-  currentTheme =
-    currentTheme + 1 === PRIMARY_COLORS.length ? 0 : currentTheme + 1;
-  localStorage.setItem("theme", currentTheme);
-  applyTheme(currentTheme);
+  themeList.classList.toggle("show");
 });
